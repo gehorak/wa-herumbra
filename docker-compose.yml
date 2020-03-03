@@ -62,9 +62,6 @@ services:
    
     depends_on:
     - rabbitmq
-
-    environment:
-      AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
     
     ports:
       # HTTP management UI

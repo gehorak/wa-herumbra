@@ -25,6 +25,12 @@ RUN \
     && mv /heritrix-3.4.0-SNAPSHOT /opt/heritrix \
     && rm -rf heritrix.tar.gz
 
+# Install AMQP client
+# https://mvnrepository.com/artifact/com.rabbitmq/amqp-client/5.8.0
+RUN \
+    wget -v -O /amqp-client-5.8.0.jar https://repo1.maven.org/maven2/com/rabbitmq/amqp-client/5.8.0/amqp-client-5.8.0.jar \
+    && mv /amqp-client-5.8.0.jar /opt/heritrix/lib 
+
 
 COPY jobs /opt/heritrix/heritrix-data/jobs
 COPY bin /opt/bin
@@ -34,19 +40,17 @@ COPY bin /opt/bin
 # For Spring-Boot project, use the entrypoint below to reduce Tomcat startup time.
 #ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar wa-heritrix-umbra-sandbox.jar
 
-
-
 # Configure Heritrix options:
 ENV FOREGROUND=true \
     JAVA_OPTS=-Xmx2g
-#ENV JAVA_OPTS -Xmx2g -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+#   JAVA_OPTS -Xmx2g -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
 
 # Set up some defaults:
-ENV \
-    HERITRIX_ADMIN_USER heritrix \
-    HERITRIX_ADMIN_PASS heritrix \
-    HERITRIX_ADMIN_PORT 8443 \
-    HERITRIX_BIND_HOST 0.0.0.0 
+# ENV \
+#    HERITRIX_ADMIN_USER heritrix \
+#    HERITRIX_ADMIN_PASS heritrix \
+#    HERITRIX_ADMIN_PORT 8443 \
+#    HERITRIX_BIND_HOST 0.0.0.0 
 
 WORKDIR /opt/heritrix
 
@@ -58,3 +62,4 @@ EXPOSE 8443
 
 ENTRYPOINT ["/opt/heritrix/bin/heritrix"]
 CMD [ "-b 0.0.0.0","-p 8443","-a heritrix:heritrix","--jobs-dir /opt/heritrix/heritrix-data/jobs" ]
+

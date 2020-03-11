@@ -32,8 +32,8 @@ RUN \
     && mv /amqp-client-5.8.0.jar /opt/heritrix/lib 
 
 
-COPY jobs /opt/heritrix/heritrix-data/jobs
-COPY bin /opt/bin
+COPY jobs /opt/heritrix/jobs
+COPY bin /opt/heritrix/bin
 
 #ADD wa-heritrix-umbra-sandbox.jar wa-heritrix-umbra-sandbox.jar
 #ENTRYPOINT exec java $JAVA_OPTS -jar wa-heritrix-umbra-sandbox.jar
@@ -41,25 +41,31 @@ COPY bin /opt/bin
 #ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar wa-heritrix-umbra-sandbox.jar
 
 # Configure Heritrix options:
+
 ENV FOREGROUND=true \
-    JAVA_OPTS=-Xmx2g
-#   JAVA_OPTS -Xmx2g -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+    #JAVA_OPTS='-Xmx2g'
+    JAVA_OPTS='-Xmx2g -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2'
 
 # Set up some defaults:
-# ENV \
-#    HERITRIX_ADMIN_USER heritrix \
-#    HERITRIX_ADMIN_PASS heritrix \
-#    HERITRIX_ADMIN_PORT 8443 \
-#    HERITRIX_BIND_HOST 0.0.0.0 
+ENV \
+    HERITRIX_ADMIN_USER='admin' \
+    HERITRIX_ADMIN_PASS='admin' \
+    HERITRIX_ADMIN_PORT='8443' \
+    HERITRIX_BIND_HOST='0.0.0.0' \
+    HERITRIX_JOBS_PATH='/opt/heritrix/jobs' \
+    HERITRIX_JOBNAME='default'
+
 
 WORKDIR /opt/heritrix
 
-VOLUME /opt/heritrix/heritrix-data
+VOLUME /opt/heritrix/shared
+VOLUME /opt/heritrix/output
 
-EXPOSE 8443
+EXPOSE 8443\
+       5000
 
-#CMD /opt/bin/heritrix-start.sh
 
 ENTRYPOINT ["/opt/heritrix/bin/heritrix"]
-CMD [ "-b 0.0.0.0","-p 8443","-a heritrix:heritrix","--jobs-dir /opt/heritrix/heritrix-data/jobs" ]
-
+#CMD [ "-b $HERITRIX_BIND_HOST","-p $HERITRIX_ADMIN_PORT","-a $HERITRIX_ADMIN_USER:$HERITRIX_ADMIN_PASS","--jobs-dir $HERITRIX_JOBS_PATH" ]
+CMD [ "-b 0.0.0.0","-p 8443","-a admin:admin","--jobs-dir /opt/heritrix/jobs" ]
+# CMD /opt/heritrix/bin/start.sh

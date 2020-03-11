@@ -44,7 +44,7 @@ metadata.description=Basic crawl starting with useful defaults
 
  <!-- ...Umbra integration... -->
 umbraBean.clientId=MySpecialJobName
-umbraBean.amqpUri=amqp://guest:guest@rabbitmq:5672/
+umbraBean.amqpUri=amqp://guest:guest@rabbitmq:5672/%2f
 ## The following rule restricts umbra to processing only on seeds or links, leaving embeds and redirects
 ## to be handled by the browser itself
 umbraBean.shouldProcessRule.rules[1].regex=^$|.*L
@@ -400,7 +400,7 @@ http://example.example/example
   <!-- <property name="directory" value="${launchId}" /> -->
   <property name="storePaths">
         <list>
-         <value>/warcs</value>
+         <value>/opt/heritrix/output</value>
         </list>
   </property>
   <!-- <property name="template" value="${prefix}-${timestamp17}-${serialno}-${heritrix.pid}~${heritrix.hostname}~${heritrix.port}" /> -->

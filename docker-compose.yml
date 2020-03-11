@@ -61,8 +61,10 @@ services:
     - rabbitmq
     
     ports:
-      # HTTP management UI
-      - '8443:8443'
+      # HTTP management
+      - '15673:8443'
+      # JMX
+      - '15675:5000'
 
     networks:
      - network
@@ -71,3 +73,4 @@ networks:
   # Declare our private network.  We must declare one for the magic
   # Docker DNS to work, but otherwise its default settings are fine.
   network: {}
+

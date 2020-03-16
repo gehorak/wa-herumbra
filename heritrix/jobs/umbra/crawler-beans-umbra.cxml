@@ -37,13 +37,13 @@
 # This Properties map is specified in the Java 'property list' text format
 # http://java.sun.com/javase/6/docs/api/java/util/Properties.html#load%28java.io.Reader%29
 
-metadata.operatorContactUrl=example.com
-metadata.jobName=basic
-metadata.description=Basic crawl starting with useful defaults
+metadata.operatorContactUrl=https://github.com/gehorak/wa-herumbra
+metadata.jobName=umra
+metadata.description=Basic Umbra crawl starting with useful defaults
 
 
  <!-- ...Umbra integration... -->
-umbraBean.clientId=MySpecialJobName
+umbraBean.clientId=umbra
 umbraBean.amqpUri=amqp://guest:guest@rabbitmq:5672/%2f
 ## The following rule restricts umbra to processing only on seeds or links, leaving embeds and redirects
 ## to be handled by the browser itself
@@ -62,7 +62,7 @@ umbraBean.shouldProcessRule.rules[1].regex=^$|.*L
     <prop key="seeds.textSource.value">
 
 # URLS HERE
-http://example.example/example
+http://example.org
 
     </prop>
    </props>
@@ -71,12 +71,14 @@ http://example.example/example
  
  
  <!-- ...Umbra integration... -->
+ 
  <!--
  Bean that sends messages (urls) to umbra.
- -->
+  -->
  <bean id="umbraBean" class="org.archive.modules.AMQPPublishProcessor">
   <property name="clientId" value="[see override]"/>
   <property name="amqpUri" value="[see override]"/>
+  
   <property name="shouldProcessRule">
    <bean class="org.archive.modules.deciderules.DecideRuleSequence">
     <property name="rules">
@@ -88,12 +90,15 @@ http://example.example/example
      </list>
     </property>
    </bean>
-  </property>
+    
+  </property> 
  </bean>
  
  <!--
  Bean that receives messages (urls) from umbra and places them in the Heritrix frontier.
- -->
+ https://javadoc.io/doc/org.archive.heritrix/heritrix-contrib/latest/org/archive/crawler/frontier/package-summary.html
+ --> 
+
  <bean class="org.archive.crawler.frontier.AMQPUrlReceiver">
   <property name="amqpUri">
    <bean class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
@@ -101,6 +106,7 @@ http://example.example/example
           <property name="propertyPath" value="amqpUri" />
          </bean>
   </property>
+  
   <property name="queueName">
       <bean class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
        <property name="targetObject" ref="umbraBean"/>

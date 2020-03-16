@@ -37,9 +37,9 @@
 # This Properties map is specified in the Java 'property list' text format
 # http://java.sun.com/javase/6/docs/api/java/util/Properties.html#load%28java.io.Reader%29
 
-metadata.operatorContactUrl=ENTER_AN_URL_WITH_YOUR_CONTACT_INFO_HERE_FOR_WEBMASTERS_AFFECTED_BY_YOUR_CRAWL
-metadata.jobName=basic
-metadata.description=Basic crawl starting with useful defaults
+metadata.operatorContactUrl=https://github.com/gehorak/wa-herumbra
+metadata.jobName=default
+metadata.description=Default crawl starting with useful defaults
 
 
 ##..more?..##
@@ -55,7 +55,7 @@ metadata.description=Basic crawl starting with useful defaults
     <prop key="seeds.textSource.value">
 
 # URLS HERE
-http://example.example/example
+http://example.org
 
     </prop>
    </props>
@@ -81,8 +81,8 @@ http://example.example/example
       ConfigString allows simple, inline specification of a moderate
       number of seeds; see below comment for example of using an
       arbitrarily-large external file. -->
- <bean id="seeds" class="org.archive.modules.seeds.TextSeedModule">
-     <property name="textSource">
+  <bean id="seeds" class="org.archive.modules.seeds.TextSeedModule">
+    <property name="textSource">
       <bean class="org.archive.spring.ConfigString">
        <property name="value">
         <value>
@@ -90,10 +90,10 @@ http://example.example/example
         </value>
        </property>
       </bean>
-     </property>
-<!-- <property name='sourceTagSeeds' value='false'/> -->
-<!-- <property name='blockAwaitingSeedLines' value='-1'/> -->
- </bean>
+    </property>
+    <!-- <property name='sourceTagSeeds' value='false'/> -->
+    <!-- <property name='blockAwaitingSeedLines' value='-1'/> -->
+  </bean>
  
  <!-- SEEDS ALTERNATE APPROACH: specifying external seeds.txt file in
       the job directory, similar to the H1 approach. 

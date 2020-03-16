@@ -41,7 +41,7 @@ RUN apk add --no-cache \
     gcc \
     # pylibmc
     libmemcached-dev \
-    #Crypto
+    #Crypto - https://cryptography.io/en/latest/installation/#building-cryptography-on-linux
     libffi-dev \
     libressl-dev \
     musl-dev \
@@ -67,10 +67,16 @@ RUN apk add --no-cache \
 #    && apk del .build-deps
 
 # Install ampq client and files for testing mq
-#COPY testmq/ /opt/testmq
-#RUN \
-#    python3 -m pip install --upgrade pika
+# https://www.rabbitmq.com/tutorials/tutorial-one-python.html
+# cd /opt/testmq
+# python receive.py
+# python send.py
 
+COPY testmq/ /opt/testmq
+RUN \
+    python3 -m pip install --upgrade pika
+
+#
 
 COPY bin/ /opt/bin/
 

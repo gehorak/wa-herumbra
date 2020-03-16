@@ -1,6 +1,5 @@
 # wa-herumbra
-Sandbox for Umbra browser automation tool by used with the Heritrix in Docker.
-
+Sandbox of Umbra browser automation tool by used with the Heritrix in Docker.
 
 
 ## Getting Started
@@ -8,7 +7,7 @@ Sandbox for Umbra browser automation tool by used with the Heritrix in Docker.
 
 ### Prerequisites
 
-```
+```{bash}
 docker-compose --version  # requires 1.13 or later
 ```
 
@@ -16,25 +15,74 @@ docker-compose --version  # requires 1.13 or later
 
 Build
 
-```
-git clone 
-docker-compose -f ./wa-herumbra/docker-compose.yml build
+```{bash}
+git clone https://github.com/gehorak/wa-herumbra
+docker-compose -f ./wa-herumbra/docker-compose.yml --build
 ```
 
 And running
 
-```
+```{bash}
 docker-compose -f ./wa-herumbra/docker-compose.yml -d up
 ```
 
 ## How to use
 
-...
+### Console
 
-## API Reference
+Connect to docker container
+```{bash}
+docker exec -it heritrix /bin/bash  
+```
 
-[Heritix API](https://heritrix.readthedocs.io/en/latest/api.html#)
-[rabbitmq.com](https://www.rabbitmq.com/api-guide.html#connecting)
+Edit your own crawler config
+
+Run harvest
+
+```{bash}
+bin/job_start.sh
+```
+Check harvest
+```{bash}
+ls -lah /opt/heritrix/output
+```
+Stop harvest
+```{bash}
+bin/job_stop.sh
+```
+
+### WebGUI
+
+#### RabbitMQ 
+
+guest@guest
+
+[http://host: 15672](http://localhost:15672/)
+
+## Reference
+
+### Software 
+
+[Heritix](https://github.com/internetarchive/heritrix3)   
+[Umbra](https://github.com/internetarchive/umbra)   
+[RabbitMQ](https://www.rabbitmq.com/)   
+
+Alpine Linux   
+Python 3.8 
+Java 1.8
+
+### Reference of API
+
+[Heritix API](https://heritrix.readthedocs.io/en/latest/api.html)    
+[RabbitMQ API](https://www.rabbitmq.com/api-guide.html)
+
+### Resources
+
+[amqp.org](https://www.amqp.org/)   
+[Specification of AMPQ091](ttps://www.rabbitmq.com/resources/specs/amqp0-9-1.pdf)   
+https://github.com/celery/py-amqp/
+
+
 
 ## License
 

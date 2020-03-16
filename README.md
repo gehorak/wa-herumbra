@@ -30,22 +30,17 @@ docker-compose -f ./wa-herumbra/docker-compose.yml -d up
 
 ### Console
 
-Connect to docker container
+Connect into docker container
 ```{bash}
 docker exec -it heritrix /bin/bash  
 ```
-
-Edit your own crawler config
 
 Run harvest
 
 ```{bash}
 bin/job_start.sh
 ```
-Check harvest
-```{bash}
-ls -lah /opt/heritrix/output
-```
+
 Stop harvest
 ```{bash}
 bin/job_stop.sh
@@ -68,7 +63,7 @@ guest@guest
 [RabbitMQ](https://www.rabbitmq.com/)   
 
 Alpine Linux   
-Python 3.8 
+Python 3.8   
 Java 1.8
 
 ### Reference of API

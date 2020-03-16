@@ -38,12 +38,12 @@
 # http://java.sun.com/javase/6/docs/api/java/util/Properties.html#load%28java.io.Reader%29
 
 metadata.operatorContactUrl=https://github.com/gehorak/wa-herumbra
-metadata.jobName=umra
+metadata.jobName=umbra
 metadata.description=Basic Umbra crawl starting with useful defaults
 
 
  <!-- ...Umbra integration... -->
-umbraBean.clientId=umbra
+umbraBean.clientId=urls
 umbraBean.amqpUri=amqp://guest:guest@rabbitmq:5672/%2f
 ## The following rule restricts umbra to processing only on seeds or links, leaving embeds and redirects
 ## to be handled by the browser itself

@@ -45,7 +45,7 @@ docker-compose -f ./wa-herumbra/docker-compose.yml -d up
 
 ## Reference
 
-#### Použité oficiální image Docker kontejnerů
+#### Official Docker images
 
 | Docker Image                   | Utilization      |
 |--------------------------------|------------------|
@@ -73,9 +73,9 @@ docker-compose -f ./wa-herumbra/docker-compose.yml -d up
 
 ### Resources
 
-[amqp.org](https://www.amqp.org/)
-[Specification of AMPQ091](https://www.rabbitmq.com/resources/specs/amqp0-9-1.pdf)
-[Heritrix AMQPUrlReceiver](https://github.com/internetarchive/heritrix3/blob/master/contrib/src/main/java/org/archive/crawler/frontier/AMQPUrlReceiver.java)
+[amqp.org](https://www.amqp.org/)   
+[Specification of AMPQ091](https://www.rabbitmq.com/resources/specs/amqp0-9-1.pdf)   
+[Heritrix AMQPUrlReceiver](https://github.com/internetarchive/heritrix3/blob/master/contrib/src/main/java/org/archive/crawler/frontier/AMQPUrlReceiver.java)   
 [Heritrix AMQPPublishProcessor](https://github.com/internetarchive/heritrix3/blob/master/contrib/src/main/java/org/archive/modules/AMQPPublishProcessor.java)
 
 ## License

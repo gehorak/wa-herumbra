@@ -11,6 +11,7 @@ services:
     # the management UI.
     # https://www.rabbitmq.com/management.html
     image: 'rabbitmq:3-management-alpine'
+    container_name: herumbra-rabbitmq
 
     # These ports are exposed on the host; 'hostport:containerport'.
     # You could connect to this server from outside with the *host's*
@@ -32,7 +33,11 @@ services:
 
   umbra:
     # If needed, Docker Compose will automatically run consumer/Dockerfile.
-    build: ./umbra
+    build:
+      context: ./umbra
+      dockerfile: Dockerfile
+    container_name: herumbra-umbra
+
     links:
     - rabbitmq
     depends_on:
@@ -52,8 +57,11 @@ services:
       - network
 
   heritrix:
-    build: ./heritrix
-    
+    build:
+      context: ./heritrix
+      dockerfile: Dockerfile
+    container_name: herumbra-heritrix
+
     links:
     - rabbitmq
    
@@ -66,8 +74,25 @@ services:
       # JMX
       - '15675:5000'
 
+    volumes:
+     - ${HERITRIX_JOBS_PATH}:/opt/heritrix/jobs
+     - ${HERITRIX_OUTPUT}:/opt/heritrix/output
+
     networks:
      - network
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: herumbra-filebrowser
+    
+    ports:
+      - '15678:80' 
+    
+    volumes:
+      - ${DATA_DIR}:/srv
+    
+    networks:
+      - network
 
 networks:
   # Declare our private network.  We must declare one for the magic

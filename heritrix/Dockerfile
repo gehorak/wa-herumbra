@@ -65,7 +65,7 @@ ENV \
     HERITRIX_BIND_HOST='0.0.0.0' \
     HERITRIX_JOBS_PATH='/opt/heritrix/jobs' \
     HERITRIX_JOBNAME='umbra' \
-    HERITRIX_OUT='/opt/heritrix/output' \
+    HERITRIX_OUTPUT='/opt/heritrix/output' \
     HERITRIX_HOME='/opt/heritrix/'
 
 WORKDIR /opt/heritrix
@@ -73,8 +73,7 @@ WORKDIR /opt/heritrix
 VOLUME /opt/heritrix/jobs
 VOLUME /opt/heritrix/output
 
-EXPOSE 8443\
-       5000
+EXPOSE 8443 5000
 
 ENTRYPOINT ["/opt/heritrix/bin/heritrix"]
 #CMD [ "-b $HERITRIX_BIND_HOST","-p $HERITRIX_ADMIN_PORT","-a $HERITRIX_ADMIN_USER:$HERITRIX_ADMIN_PASS","--jobs-dir $HERITRIX_JOBS_PATH" ]

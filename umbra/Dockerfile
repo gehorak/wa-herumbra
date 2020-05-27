@@ -73,10 +73,9 @@ RUN apk add --no-cache \
 # python send.py
 
 COPY testmq/ /opt/testmq
+
 RUN \
     python3 -m pip install --upgrade pika
-
-#
 
 COPY bin/ /opt/bin/
 
